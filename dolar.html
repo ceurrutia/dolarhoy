@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dolar hoy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script>
+      function mostrarTiposDolares(data) {
+        const cardsContainer = document.getElementById("cardsContainer");
+
+        // Itero sobre los datos para crear una tarjeta para cada tipo de dólar
+        data.forEach((tipo) => {
+          const card = document.createElement("div");
+          card.classList.add("col-md-4", "mb-3");
+
+          card.innerHTML = `
+              <div class="card text-center">
+                <div class="card-header">
+                   <h4> ${tipo.nombre}</h4>
+                </div>
+                <div class="card-body"></h5>
+                  <h2 class="card-title"> ${tipo.venta}</h2>
+                    <p class="card-text">Compra:  ${tipo.compra}</p>
+                    <p class="card-text">Mondeda: ${tipo.moneda}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <p class="card-text">Fecha: ${tipo.fechaActualizacion}</p>
+                </div>
+              </div>`;
+
+          cardsContainer.appendChild(card);
+        });
+      }
+
+      // Obtener datos de la API y mostrar en tarjetas
+      fetch("https://dolarapi.com/v1/dolares")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("La solicitud no fue exitosa");
+          }
+          return response.json();
+        })
+        .then((data) => mostrarTiposDolares(data))
+        .catch((error) => console.error("Error al obtener datos...", error));
+    </script>
+  </head>
+  <body>
+    <h1 style="text-align: center">Dolar hoy</h1>
+
+    <div class="container">
+      <div class="row" id="cardsContainer"></div>
+    </div>
+    <!-- Agrega el enlace al archivo JavaScript de Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
