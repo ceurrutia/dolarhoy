@@ -1,2 +1,2 @@
 # dolarhoy
-Cotizaci[on diaria del dolar en html/JS
+Cotización diaria del dolar en html/JS
